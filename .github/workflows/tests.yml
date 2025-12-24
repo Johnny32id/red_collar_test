@@ -21,7 +21,13 @@ jobs:
     - name: Install system dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y spatialite-bin libspatialite-dev libsqlite3-mod-spatialite
+        sudo apt-get install -y \
+          spatialite-bin \
+          libspatialite-dev \
+          libsqlite3-mod-spatialite \
+          gdal-bin \
+          libgdal-dev \
+          python3-gdal
     
     - name: Install Poetry
       uses: snok/install-poetry@v1
@@ -52,7 +58,7 @@ jobs:
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
-      if: always()
+      if: always() && hashFiles('coverage.xml') != ''
       with:
         file: ./coverage.xml
         flags: unittests
