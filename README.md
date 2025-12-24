@@ -1,5 +1,7 @@
 # Geo Points API
 
+![Tests & Lint](https://github.com/Johnny32id/red_collar_test/actions/workflows/tests.yml/badge.svg)
+
 Backend-приложение на Django для работы с географическими точками на карте. Приложение предоставляет REST API для создания точек, обмена сообщениями и поиска контента в заданном радиусе от указанных координат.
 
 ## Технический стек
