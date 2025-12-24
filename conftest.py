@@ -4,7 +4,8 @@
 import pytest
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point as GeoPoint
-from points.models import Point, Message
+
+from points.models import Message, Point
 
 
 @pytest.fixture
@@ -48,6 +49,7 @@ def message(point, user, db):
 @pytest.fixture
 def api_client():
     from rest_framework.test import APIClient
+
     return APIClient()
 
 
@@ -55,4 +57,3 @@ def api_client():
 def authenticated_api_client(api_client, user):
     api_client.force_authenticate(user=user)
     return api_client
-

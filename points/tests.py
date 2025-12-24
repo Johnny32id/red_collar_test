@@ -4,7 +4,8 @@
 import pytest
 from django.contrib.gis.geos import Point as GeoPoint
 from rest_framework import status
-from points.models import Point, Message
+
+from points.models import Message, Point
 
 
 @pytest.mark.django_db

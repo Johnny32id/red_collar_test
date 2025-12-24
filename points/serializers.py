@@ -1,10 +1,11 @@
 """
 Сериализаторы для API точек и сообщений.
 """
-from rest_framework import serializers
-from django.contrib.gis.geos import Point as GeoPoint
 from django.contrib.auth.models import User
-from .models import Point, Message
+from django.contrib.gis.geos import Point as GeoPoint
+from rest_framework import serializers
+
+from .models import Message, Point
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -132,4 +133,3 @@ class MessageSearchSerializer(serializers.Serializer):
         min_value=0.1,
         max_value=1000,
     )
-

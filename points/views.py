@@ -3,16 +3,17 @@ API представления для работы с точками и сооб
 """
 from django.contrib.gis.geos import Point as GeoPoint
 from django.contrib.gis.measure import D
-from rest_framework import viewsets, status
+from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .models import Point, Message
+from rest_framework.response import Response
+
+from .models import Message, Point
 from .serializers import (
-    PointSerializer,
+    MessageSearchSerializer,
     MessageSerializer,
     PointSearchSerializer,
-    MessageSearchSerializer,
+    PointSerializer,
 )
 
 
@@ -58,9 +59,11 @@ class PointViewSet(viewsets.ModelViewSet):
         radius_km = serializer.validated_data["radius"]
 
         center = GeoPoint(longitude, latitude, srid=4326)
-        points = Point.objects.filter(
-            location__distance_lte=(center, D(km=radius_km))
-        ).select_related("created_by").prefetch_related("messages")
+        points = (
+            Point.objects.filter(location__distance_lte=(center, D(km=radius_km)))
+            .select_related("created_by")
+            .prefetch_related("messages")
+        )
 
         point_serializer = PointSerializer(points, many=True)
         return Response(point_serializer.data)
